@@ -1,0 +1,251 @@
+mysql> CREATE DATABASE rental_motor;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use rental_motor;
+Database changed
+
+mysql> CREATE TABLE motor (
+    ->id_motor INT PRIMARY KEY,
+    ->merk_motor VARCHAR(50),
+    ->plat_nomor VARCHAR(15),
+    ->harga_sewa INT,
+    ->status VARCHAR(20)
+    -> );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE pelanggan (
+    ->id_pelanggan INT PRIMARY KEY,
+    ->nama VARCHAR(50),
+    ->no_hp VARCHAR(15),
+    ->alamat VARCHAR(100)
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE TABLE rental (
+    ->id_rental INT PRIMARY KEY,
+    ->id_motor INT,
+    ->id_pelanggan INT,
+    ->tanggal_sewa DATE,
+    ->lama_sewa INT,
+    ->total_bayar INT
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> ALTER TABLE motor
+    -> MODIFY merk_motor VARCHAR(100);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE motor
+    -> ADD COLUMN warna VARCHAR(100);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE motor;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| id_motor   | int          | NO   | PRI | NULL    |       |
+| merk_motor | varchar(100) | YES  |     | NULL    |       |
+| plat_nomor | varchar(15)  | YES  |     | NULL    |       |
+| harga_sewa | int          | YES  |     | NULL    |       |
+| status     | varchar(20)  | YES  |     | NULL    |       |
+| warna      | varchar(100) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+mysql> ALTER TABLE motor
+    -> CHANGE warna color VARCHAR(100);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE motor;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| id_motor   | int          | NO   | PRI | NULL    |       |
+| merk_motor | varchar(100) | YES  |     | NULL    |       |
+| plat_nomor | varchar(15)  | YES  |     | NULL    |       |
+| harga_sewa | int          | YES  |     | NULL    |       |
+| status     | varchar(20)  | YES  |     | NULL    |       |
+| color      | varchar(100) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE motor
+    -> DROP COLUMN color;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESCRIBE motor;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| id_motor   | int          | NO   | PRI | NULL    |       |
+| merk_motor | varchar(100) | YES  |     | NULL    |       |
+| plat_nomor | varchar(15)  | YES  |     | NULL    |       |
+| harga_sewa | int          | YES  |     | NULL    |       |
+| status     | varchar(20)  | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> INSERT INTO motor VALUES
+    ->(1,'Vario','B1234XX',80000,'tersedia'),
+    ->(2,'NMAX','B5678YY',120000,'tersedia'),
+    ->(3,'Beat','B2222AA',70000,'tersedia'),
+    ->(4,'PCX','B3333BB',130000,'tersedia'),
+    ->(5,'Aerox','B4444CC',110000,'tersedia');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO pelanggan VALUES
+    ->(1,'Nabil','08123456789','Jakarta'),
+    ->(2,'Bama','08234567890','Bekasi'),
+    ->(3,'Citra','08345678901','Depok'),
+    ->(4,'Doni','08456789012','Tangerang'),
+    ->(5,'Eka','08567890123','Bogor');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO rental VALUES
+    ->(1,1,1,'2026-02-20',3,240000),
+    ->(2,2,2,'2026-02-21',2,240000),
+    ->(3,3,3,'2026-02-22',4,280000),
+    ->(4,4,4,'2026-02-23',1,130000),
+    ->(5,5,5,'2026-02-24',2,220000);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM motor;
++----------+------------+------------+------------+----------+
+| id_motor | merk_motor | plat_nomor | harga_sewa | status   |
++----------+------------+------------+------------+----------+
+|        1 | Vario      | B1234XX    |      80000 | tersedia |
+|        2 | NMAX       | B5678YY    |     120000 | tersedia |
+|        3 | Beat       | B2222AA    |      70000 | tersedia |
+|        4 | PCX        | B3333BB    |     130000 | tersedia |
+|        5 | Aerox      | B4444CC    |     110000 | tersedia |
++----------+------------+------------+------------+----------+
+5 rows in set (0.01 sec)
+
+mysql> UPDATE motor SET merk_motor = 'MIO'
+    -> WHERE merk_motor = 'PCX';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM motor;
++----------+------------+------------+------------+----------+
+| id_motor | merk_motor | plat_nomor | harga_sewa | status   |
++----------+------------+------------+------------+----------+
+|        1 | Vario      | B1234XX    |      80000 | tersedia |
+|        2 | NMAX       | B5678YY    |     120000 | tersedia |
+|        3 | Beat       | B2222AA    |      70000 | tersedia |
+|        4 | MIO        | B3333BB    |     130000 | tersedia |
+|        5 | Aerox      | B4444CC    |     110000 | tersedia |
++----------+------------+------------+------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM pelanggan;
++--------------+-------+-------------+-----------+
+| id_pelanggan | nama  | no_hp       | alamat    |
++--------------+-------+-------------+-----------+
+|            1 | Nabil | 08123456789 | Jakarta   |
+|            2 | Bama  | 08234567890 | Bekasi    |
+|            3 | Citra | 08345678901 | Depok     |
+|            4 | Doni  | 08456789012 | Tangerang |
+|            5 | Eka   | 08567890123 | Bogor     |
++--------------+-------+-------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM rental;
++-----------+----------+--------------+--------------+-----------+-------------+
+| id_rental | id_motor | id_pelanggan | tanggal_sewa | lama_sewa | total_bayar |
++-----------+----------+--------------+--------------+-----------+-------------+
+|         1 |        1 |            1 | 2026-02-20   |         3 |      240000 |
+|         2 |        2 |            2 | 2026-02-21   |         2 |      240000 |
+|         3 |        3 |            3 | 2026-02-22   |         4 |      280000 |
+|         4 |        4 |            4 | 2026-02-23   |         1 |      130000 |
+|         5 |        5 |            5 | 2026-02-24   |         2 |      220000 |
++-----------+----------+--------------+--------------+-----------+-------------+
+5 rows in set (0.00 sec)
+
+
+mysql> SELECT pelanggan.nama, motor.merk_motor, rental.tanggal_sewa
+    -> FROM rental
+    -> INNER JOIN pelanggan ON rental.id_pelanggan = pelanggan.id_pelanggan
+    -> INNER JOIN motor ON rental.id_motor = motor.id_motor;
++-------+------------+--------------+
+| nama  | merk_motor | tanggal_sewa |
++-------+------------+--------------+
+| Nabil | Vario      | 2026-02-20   |
+| Bama  | NMAX       | 2026-02-21   |
+| Citra | Beat       | 2026-02-22   |
+| Doni  | MIO        | 2026-02-23   |
+| Eka   | Aerox      | 2026-02-24   |
++-------+------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT motor.merk_motor, pelanggan.nama, rental.tanggal_sewa
+    -> FROM motor
+    -> LEFT JOIN rental ON motor.id_motor = rental.id_motor
+    -> LEFT JOIN pelanggan ON rental.id_pelanggan = pelanggan.id_pelanggan;
++------------+-------+--------------+
+| merk_motor | nama  | tanggal_sewa |
++------------+-------+--------------+
+| Vario      | Nabil | 2026-02-20   |
+| NMAX       | Bama  | 2026-02-21   |
+| Beat       | Citra | 2026-02-22   |
+| MIO        | Doni  | 2026-02-23   |
+| Aerox      | Eka   | 2026-02-24   |
++------------+-------+--------------+
+5 rows in set (0.01 sec)
+
+
+mysql> SELECT COUNT(*) AS jumlah_transaksi FROM rental;
++------------------+
+| jumlah_transaksi |
++------------------+
+|                5 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUM(total_bayar) AS total_pendapatan FROM rental;
++------------------+
+| total_pendapatan |
++------------------+
+|          1110000 |
++------------------+
+1 row in set (0.01 sec)
+
+
+mysql> CREATE VIEW laporan_rental AS
+    -> SELECT pelanggan.nama, motor.merk_motor,
+    -> rental.tanggal_sewa, rental.lama_sewa, rental.total_bayar
+    -> FROM rental
+    -> JOIN pelanggan ON rental.id_pelanggan = pelanggan.id_pelanggan
+    -> JOIN motor ON rental.id_motor = motor.id_motor;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SELECT * FROM laporan_rental;
++-------+------------+--------------+-----------+-------------+
+| nama  | merk_motor | tanggal_sewa | lama_sewa | total_bayar |
++-------+------------+--------------+-----------+-------------+
+| Andi  | Vario      | 2026-02-20   |         3 |      240000 |
+| Budi  | NMAX       | 2026-02-21   |         2 |      240000 |
+| Citra | Beat       | 2026-02-22   |         4 |      280000 |
+| Doni  | MIO        | 2026-02-23   |         1 |      130000 |
+| Eka   | Aerox      | 2026-02-24   |         2 |      220000 |
++-------+------------+--------------+-----------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_rental_motor |
++------------------------+
+| laporan_rental         |
+| motor                  |
+| pelanggan              |
+| rental                 |
++------------------------+
+4 rows in set (0.01 sec)
