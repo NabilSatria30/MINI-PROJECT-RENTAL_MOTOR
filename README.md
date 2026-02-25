@@ -6,7 +6,7 @@ LINKEDIN : https://www.linkedin.com/in/muhamad-satria-nabil-b45a633a5/
 
 👨‍💻 Kelompok 2 Anggota :
 - Kemala Putri Oktaviani (16)
-- Muhammad Satria Nabil (21)
+- Muhamad Satria Nabil (21)
 - Salatin Nibras Bama Kerti (32)
 
 ## 📌 Deskripsi Project
